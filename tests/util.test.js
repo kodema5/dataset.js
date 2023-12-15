@@ -54,16 +54,16 @@ describe('util', () => {
     })
 
 
-    it ('queries value', async () => {
+    it ('queries value', () => {
         let a = {b:[{c:1}, {c:2}]}
-        assertEquals(await data_query(a, '$..c'), [1,2])
+        assertEquals(data_query(a, '$..c'), [1,2])
 
         // returns default value
-        assertEquals(await data_query(a, '$.x', 111), 111)
+        assertEquals(data_query(a, '$.x', 111), 111)
     })
 
 
-    it ('does not call queried function', async () => {
+    it ('does not call queried function', () => {
         let a = {b:{
             _f: 123,
             f: function() {
@@ -71,7 +71,7 @@ describe('util', () => {
                 return new Promise((ok) => setTimeout(() => ok(me._f + 10), 1))
             }
         }}
-        assertEquals(await data_query(a, '$.b.f'), [a.b.f])
+        assertEquals(data_query(a, '$.b.f'), [a.b.f])
     })
 
 

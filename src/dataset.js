@@ -56,12 +56,12 @@ export class Dataset {
         return await Dataset.get(this._data, path, alt)
     }
 
-    async query(path, alt) {
-        return await Dataset.query(this._data, path, alt)
+    query(path, alt) {
+        return Dataset.query(this._data, path, alt)
     }
 
-    async first(path, alt) {
-        let arr = await Dataset.query(this._data, path, [])
+    first(path, alt) {
+        let arr = Dataset.query(this._data, path, [])
         return arr.length === 0 ? alt : arr[0]
     }
 

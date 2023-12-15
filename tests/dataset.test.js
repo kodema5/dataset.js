@@ -16,11 +16,11 @@ describe('data', () => {
         assertEquals(await ds.get('b.c.d.e'), 1)
         assertEquals(await ds.get('b.c.d.x', 0), 0)
 
-        assertEquals(await ds.query('$.b.c.d'), [{e:1}])
-        assertEquals(await ds.query('$.b.c.x', 0), 0)
+        assertEquals(ds.query('$.b.c.d'), [{e:1}])
+        assertEquals(ds.query('$.b.c.x', 0), 0)
 
-        assertEquals(await ds.first('$.b.c.d'), {e:1})
-        assertEquals(await ds.first('$.b.c.x', 0), 0)
+        assertEquals(ds.first('$.b.c.d'), {e:1})
+        assertEquals(ds.first('$.b.c.x', 0), 0)
     })
 
     it('proxies properties', async () => {
@@ -36,12 +36,12 @@ describe('data', () => {
         assertEquals(await ds['b.x'], undefined)
 
         // get-query
-        assertEquals(await ds['$.b.c'], [{f:2}])
-        assertEquals(await ds['$.b.x'], undefined)
+        assertEquals(ds['$.b.c'], [{f:2}])
+        assertEquals(ds['$.b.x'], undefined)
 
         // get-first
-        assertEquals(await ds['#.b.c'], {f:2})
-        assertEquals(await ds['#.b.x'], undefined)
+        assertEquals(ds['#.b.c'], {f:2})
+        assertEquals(ds['#.b.x'], undefined)
     })
 
 
@@ -61,11 +61,11 @@ describe('data', () => {
         assertEquals(await ds['mods.foo.incr'], 101)
 
         // to access function directly
-        let fn = await ds['#.mods.foo.incr']
+        let fn = ds['#.mods.foo.incr']
         assertEquals(fn(), 102)
 
         // to access a class directly
-        let Cls = await ds['#.mods.foo.Incr']
+        let Cls = ds['#.mods.foo.Incr']
         let obj = new Cls(111)
         assertEquals(obj.incr(), 111)
         assertEquals(obj.incr(), 112)
