@@ -1,6 +1,7 @@
-import { data_get, data_set, data_query, is_function } from "./util.js";
+import { data_get, data_set, data_query, data_call, is_function } from "./util.js";
 
-
+// wraps data-access whether variable/function
+//
 export class Dataset {
 
     constructor(seed = {}) {
@@ -65,7 +66,13 @@ export class Dataset {
         return arr.length === 0 ? alt : arr[0]
     }
 
+    call(path, ...args) {
+        return Dataset.call(this._data, path, args)
+    }
+
+
     static set = data_set
     static get = data_get
     static query = data_query
+    static call = data_call
 }

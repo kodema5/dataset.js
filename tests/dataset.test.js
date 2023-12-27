@@ -21,6 +21,10 @@ describe('data', () => {
 
         assertEquals(ds.first('$.b.c.d'), {e:1})
         assertEquals(ds.first('$.b.c.x', 0), 0)
+
+        await ds.set('b.c.d.f', (a,b)=>a+b)
+        assertEquals(ds.call('b.c.d.f', 1, 2), 3)
+
     })
 
     it('proxies properties', async () => {
@@ -42,6 +46,7 @@ describe('data', () => {
         // get-first
         assertEquals(ds['#.b.c'], {f:2})
         assertEquals(ds['#.b.x'], undefined)
+
     })
 
 

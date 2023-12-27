@@ -54,3 +54,24 @@ export let data_query = (root, path, defaultValue) => {
         ? defaultValue
         : rs
 }
+
+
+export let data_call = (root, path, args=[]) => {
+    let keys = path.split('.')
+
+    let r = root || {}
+    let p
+    for (let k of keys) {
+        if (!(k in r)) {
+            throw new Error(`${path} is not found`)
+        }
+        p = r
+        r = r[k]
+    }
+
+    if (!is_function(r)) {
+        throw new Error(`${path} is not a function`)
+    }
+
+    return r.apply(p, args)
+}
